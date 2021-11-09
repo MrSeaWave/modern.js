@@ -20,6 +20,16 @@ export default function () {
     .option('--dist-tag <distTag>', i18n.t(localeKeys.command.distTag), '')
     .option('--registry <registry>', i18n.t(localeKeys.command.registry), '')
     .option('-d,--debug', i18n.t(localeKeys.command.debug), false)
+    .option(
+      '-p, --plugin <plugin>',
+      i18n.t(localeKeys.command.plugin),
+      (val: string, memo: string[]) => {
+        memo.push(val);
+        return memo;
+      },
+      [],
+    )
+    .option('--solutions <solutions>', i18n.t(localeKeys.command.solutions))
     .action(createAction);
 
   program.parse(process.argv);

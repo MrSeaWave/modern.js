@@ -38,7 +38,7 @@ class ModernJsLoader extends egg.AppWorkerLoader {
       extendTypes: {
         text: ['text/xml', 'application/xml'],
       },
-    }
+    };
   }
 
   loadPlugin() {

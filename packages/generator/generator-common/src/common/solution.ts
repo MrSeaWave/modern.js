@@ -36,10 +36,45 @@ export const SolutionSchema: Schema = {
       label: () => i18n.t(localeKeys.solution.self),
       type: ['string'],
       mutualExclusion: true,
-      items: Object.values(Solution).map(solution => ({
-        key: solution,
-        label: SolutionText[solution],
-      })),
+      items: (
+        _data: Record<string, any>,
+        extra: {
+          plugins?: Array<{ key: string; name: string }>;
+          solutions?: string[];
+        } = {},
+      ) => {
+        const { plugins = [], solutions } = extra;
+        if (solutions) {
+          return solutions
+            .map(solution => {
+              const plugin = plugins.find(p => p.key === solution);
+              if (plugin) {
+                return {
+                  key: plugin.key,
+                  label: plugin.name,
+                };
+              }
+              if (Object.values(Solution).includes(solution as Solution)) {
+                return {
+                  key: solution,
+                  label: SolutionText[solution as Solution],
+                };
+              }
+              return null;
+            })
+            .filter(solution => Boolean(solution)) as Schema[];
+        }
+        return [
+          ...plugins.map(plugin => ({
+            key: plugin.key,
+            label: plugin.name,
+          })),
+          ...Object.values(Solution).map(solution => ({
+            key: solution,
+            label: SolutionText[solution],
+          })),
+        ];
+      },
     },
   ],
 };
@@ -53,10 +88,47 @@ export const SubSolutionSchema: Schema = {
       label: () => i18n.t(localeKeys.sub_solution.self),
       type: ['string'],
       mutualExclusion: true,
-      items: Object.values(SubSolution).map(solution => ({
-        key: solution,
-        label: SubSolutionText[solution],
-      })),
+      items: (
+        _data: Record<string, any>,
+        extra: {
+          plugins?: Array<{ key: string; name: string }>;
+          solutions?: string[];
+        } = {},
+      ) => {
+        const { plugins = [], solutions } = extra;
+        if (solutions) {
+          return solutions
+            .map(solution => {
+              const plugin = plugins.find(p => p.key === solution);
+              if (plugin) {
+                return {
+                  key: plugin.key,
+                  label: plugin.name,
+                };
+              }
+              if (
+                Object.values(SubSolution).includes(solution as SubSolution)
+              ) {
+                return {
+                  key: solution,
+                  label: SubSolutionText[solution as SubSolution],
+                };
+              }
+              return null;
+            })
+            .filter(solution => Boolean(solution)) as Schema[];
+        }
+        return [
+          ...plugins.map(plugin => ({
+            key: plugin.key,
+            label: plugin.name,
+          })),
+          ...Object.values(SubSolution).map(solution => ({
+            key: solution,
+            label: SubSolutionText[solution],
+          })),
+        ];
+      },
     },
   ],
 };
