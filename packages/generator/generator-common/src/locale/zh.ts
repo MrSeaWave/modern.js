@@ -101,4 +101,15 @@ export const ZH_LOCALE = {
       framework: '框架模式',
     },
   },
+  plugin: {
+    solutionKey: {
+      self: '工程类型名称',
+      no_empty: '工程类型名称不能为空',
+    },
+    solutionName: {
+      self: '工程类型展示名称',
+      no_empty: '工程类型展示名称不能为空',
+    },
+    baseSolution: '基础工程类型',
+  },
 };

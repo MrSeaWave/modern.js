@@ -4,7 +4,7 @@ import { AppAPI } from '@modern-js/codesmith-api-app';
 import { JsonAPI } from '@modern-js/codesmith-api-json';
 import {
   i18n as commonI18n,
-  GeneratorSchema,
+  GeneratorPluginSchema,
   Solution,
   SolutionGenerator,
   BooleanConfig,
@@ -55,7 +55,7 @@ const handleTemplateFile = async (
 
   const { packageName, packagePath, language, packageManager } =
     await appApi.getInputBySchema(
-      GeneratorSchema,
+      GeneratorPluginSchema,
       context.config,
       {
         packageName: input =>
@@ -120,9 +120,7 @@ const handleTemplateFile = async (
       packageManager as string
     } build:csmith`,
     'scripts.build:csmith': 'csmith-tools build',
-    'dependencies.@modern-js/codesmith-api-app': '^1.0.0',
-    'dependencies.@modern-js/codesmith': '^1.0.0',
-    'dependencies.@modern-js/generator-common': '^1.0.0',
+    'dependencies.@modern-js/generator-plugin': '^1.0.0',
     'devDependencies.@modern-js/codesmith-tools': '^1.0.0',
   };
 
@@ -156,7 +154,7 @@ export default async (context: GeneratorContext, generator: GeneratorCore) => {
     process.exit(1);
   }
 
-  generator.logger.debug(`start run @modern-js/generator-generator`);
+  generator.logger.debug(`start run @modern-js/generator-plugin-generator`);
   generator.logger.debug(`context=${JSON.stringify(context)}`);
   generator.logger.debug(`context.data=${JSON.stringify(context.data)}`);
 
@@ -166,5 +164,7 @@ export default async (context: GeneratorContext, generator: GeneratorCore) => {
 
   appApi.showSuccessInfo();
 
-  generator.logger.debug(`forge @modern-js/generator-generator succeed `);
+  generator.logger.debug(
+    `forge @modern-js/generator-plugin-generator succeed `,
+  );
 };

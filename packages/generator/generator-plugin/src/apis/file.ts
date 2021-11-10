@@ -61,12 +61,12 @@ export interface PluginFileMethod {
     setPartial: SetPartialFun;
   };
 }
-export class PluginFileApi {
+export class PluginFileAPI {
   newScript?: string;
 
   private readonly projectPath: string;
 
-  private readonly handlebarApi: HandlebarsAPI = new HandlebarsAPI();
+  private readonly handlebarAPI: HandlebarsAPI = new HandlebarsAPI();
 
   private setModernJSONConfigParams?: SetModernJSONConfigParams;
 
@@ -135,8 +135,8 @@ export class PluginFileApi {
       rmFile: this.rmFile.bind(this),
       rmDir: this.rmDir.bind(this),
       handlebars: {
-        setHelp: this.handlebarApi.setHelper,
-        setPartial: this.handlebarApi.setPartial,
+        setHelp: this.handlebarAPI.setHelper,
+        setPartial: this.handlebarAPI.setPartial,
       },
     };
   }
@@ -147,7 +147,7 @@ export class PluginFileApi {
 
   public async getNewScript(root: string) {
     const pkgPath = path.resolve(root, 'package.json');
-    const fileOption = new FileOption(fs, this.handlebarApi.renderString);
+    const fileOption = new FileOption(fs, this.handlebarAPI.renderString);
     const pkgInfo = (await fileOption.fileExists(pkgPath))
       ? JSON.parse((await fileOption.readFile(pkgPath, 'utf8')) as string)
       : {};
@@ -157,11 +157,11 @@ export class PluginFileApi {
   // 统一处理注册execute函数
   // eslint-disable-next-line max-statements
   public async execute(root: string, modulePath: string, real: boolean) {
-    let fileOption = new FileOption(fs, this.handlebarApi.renderString);
+    let fileOption = new FileOption(fs, this.handlebarAPI.renderString);
     if (!real) {
       const vol = Volume.fromJSON({});
       ufs.use(fs).use(vol as any);
-      fileOption = new FileOption(ufs, this.handlebarApi.renderString);
+      fileOption = new FileOption(ufs, this.handlebarAPI.renderString);
       fileOption.mkdir(root, { recursive: true });
     }
     const pkgPath = path.resolve(root, 'package.json');

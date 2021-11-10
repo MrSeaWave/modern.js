@@ -1,0 +1,11 @@
+module.exports = function (ctx) {
+  ctx.setSolutionInfo({
+    key: '{{ solutionKey }}',
+    name: '{{ solutionName }}',
+    base: '{{ baseSolution }}',
+  });
+  ctx.setApiVersion('1.0.0');
+  ctx.onForged((_api, _inputData) => {
+    // TODO
+  });
+};

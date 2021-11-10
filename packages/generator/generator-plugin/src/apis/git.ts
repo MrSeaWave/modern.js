@@ -7,17 +7,17 @@ export interface PluginGitMethod {
   gitAddAndCommit: (commitMessage: string, cwd?: string) => Promise<void>;
 }
 export class PluginGitAPI {
-  private readonly gitApi: GitAPI;
+  private readonly gitAPI: GitAPI;
 
   constructor(generatorCore: GeneratorCore) {
-    this.gitApi = new GitAPI(generatorCore);
+    this.gitAPI = new GitAPI(generatorCore);
   }
 
   get method(): PluginGitMethod {
     return {
-      isInGitRepo: this.gitApi.isInGitRepo.bind(this.gitApi),
-      initGitRepo: this.gitApi.initGitRepo.bind(this.gitApi),
-      gitAddAndCommit: this.gitApi.addAndCommit.bind(this.gitApi),
+      isInGitRepo: this.gitAPI.isInGitRepo.bind(this.gitAPI),
+      initGitRepo: this.gitAPI.initGitRepo.bind(this.gitAPI),
+      gitAddAndCommit: this.gitAPI.addAndCommit.bind(this.gitAPI),
     };
   }
 }

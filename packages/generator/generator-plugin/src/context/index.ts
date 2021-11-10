@@ -16,17 +16,17 @@ export enum LifeCycle {
   OnPluginForged = 'onPluginForged',
 }
 
-export type ForgedApi = PluginFileMethod & { npm: PluginNpmGetMethod };
+export type ForgedAPI = PluginFileMethod & { npm: PluginNpmGetMethod };
 
-type ForgedFunc = (api: ForgedApi, inputData: Record<string, unknown>) => void;
+type ForgedFunc = (api: ForgedAPI, inputData: Record<string, unknown>) => void;
 
-export type PluginForgedApi = {
+export type PluginForgedAPI = {
   npm: PluginNpmMethod;
   git: PluginGitMethod;
 };
 
 type PluginForgedFunc = (
-  api: PluginForgedApi,
+  api: PluginForgedAPI,
   inputData: Record<string, unknown>,
 ) => Promise<void>;
 

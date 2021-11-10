@@ -15,10 +15,10 @@ export interface PluginNpmGetMethod {
   ) => Promise<string>;
 }
 export class PluginNpmAPI {
-  private readonly npmApi: NpmAPI;
+  private readonly npmAPI: NpmAPI;
 
   constructor(generatorCore: GeneratorCore) {
-    this.npmApi = new NpmAPI(generatorCore);
+    this.npmAPI = new NpmAPI(generatorCore);
   }
 
   private async getPackageVersion(packageName: string, registry?: string) {
@@ -33,9 +33,9 @@ export class PluginNpmAPI {
 
   get method(): PluginNpmMethod {
     return {
-      npmInstall: this.npmApi.npmInstall.bind(this.npmApi),
-      yarnInstall: this.npmApi.yarnInstall.bind(this.npmApi),
-      pnpmInstall: this.npmApi.pnpmInstall.bind(this.npmApi),
+      npmInstall: this.npmAPI.npmInstall.bind(this.npmAPI),
+      yarnInstall: this.npmAPI.yarnInstall.bind(this.npmAPI),
+      pnpmInstall: this.npmAPI.pnpmInstall.bind(this.npmAPI),
     };
   }
 }

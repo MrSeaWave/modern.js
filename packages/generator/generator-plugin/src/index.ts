@@ -5,10 +5,16 @@ import semver from 'semver';
 import { Logger, GeneratorCore, ILogger } from '@modern-js/codesmith';
 import { Solution, InputConfigVersionMap } from '@modern-js/generator-common';
 import { Schema } from '@modern-js/easy-form-core';
-import { PluginFileApi } from '@/apis';
-import { PluginContextMethod, PluginContext } from '@/context';
+import { PluginFileAPI } from '@/apis';
+import {
+  PluginContextMethod,
+  PluginContext,
+  ForgedAPI,
+  PluginForgedAPI,
+} from '@/context';
 import { loadPlugin } from '@/utils';
 
+export type { PluginContextMethod, ForgedAPI, PluginForgedAPI };
 interface Plugin {
   name?: string;
   version?: string;
@@ -79,7 +85,7 @@ export class GeneratorPlugin {
     generatorCore: GeneratorCore,
   ) {
     const { projectType } = inputData;
-    const pluginFileApi = new PluginFileApi(path.join(basePath, projectPath));
+    const pluginFileAPI = new PluginFileAPI(path.join(basePath, projectPath));
     if (generatorName === Solution.Monorepo) {
       // get plugin base generator, if monorepo, run plugin; or not add plugin to new command
     } else {
@@ -87,7 +93,7 @@ export class GeneratorPlugin {
     }
     noop(generatorCore);
     noop(projectType);
-    noop(pluginFileApi);
+    noop(pluginFileAPI);
   }
 
   private async loadPlugins(plugins: string[], registry?: string) {
