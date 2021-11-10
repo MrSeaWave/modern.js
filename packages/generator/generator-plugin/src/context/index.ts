@@ -1,4 +1,7 @@
 import { Schema } from '@modern-js/easy-form-core';
+import { PluginNpmMethod, PluginNpmGetMethod } from '@/apis/npm';
+import { PluginGitMethod } from '@/apis/git';
+import { PluginFileMethod } from '@/apis/file';
 
 type BaseSolution = 'mwa' | 'module' | 'monorepo';
 
@@ -12,10 +15,18 @@ export enum LifeCycle {
   OnForged = 'onForged',
   OnPluginForged = 'onPluginForged',
 }
-type ForgedFunc = (api: any, inputData: Record<string, unknown>) => void;
+
+export type ForgedApi = PluginFileMethod & { npm: PluginNpmGetMethod };
+
+type ForgedFunc = (api: ForgedApi, inputData: Record<string, unknown>) => void;
+
+export type PluginForgedApi = {
+  npm: PluginNpmMethod;
+  git: PluginGitMethod;
+};
 
 type PluginForgedFunc = (
-  api: any,
+  api: PluginForgedApi,
   inputData: Record<string, unknown>,
 ) => Promise<void>;
 

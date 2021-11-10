@@ -44,6 +44,7 @@ export { defaultsConfig } from './config';
 
 export * from '@modern-js/plugin';
 export * from '@modern-js/plugin/node';
+export { loadUserConfig, mergeConfig } from './config';
 
 program
   .name('modern')

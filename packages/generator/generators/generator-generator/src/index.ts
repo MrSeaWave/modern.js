@@ -138,8 +138,6 @@ const handleTemplateFile = async (
   await fs.mkdirp(path.join(projectPath, 'templates'));
   const testDir = path.join(projectPath, 'tests');
   fs.rmdirSync(testDir, { recursive: true });
-  const styleDir = path.join(projectPath, 'styles');
-  fs.rmdirSync(styleDir, { recursive: true });
   fs.removeSync(path.join(projectPath, '.npmignore'));
   fs.removeSync(path.join(projectPath, 'src', `index.${language as string}x`));
 };
