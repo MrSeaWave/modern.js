@@ -1,4 +1,4 @@
-module.exports = function (ctx) {
+export default function (ctx) {
   ctx.setSolutionInfo({
     key: '{{ solutionKey }}',
     name: '{{ solutionName }}',
@@ -8,4 +8,4 @@ module.exports = function (ctx) {
   ctx.onForged((_api, _inputData) => {
     // TODO
   });
-};
+}

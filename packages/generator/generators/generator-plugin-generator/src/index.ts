@@ -53,28 +53,32 @@ const handleTemplateFile = async (
     }
   }
 
-  const { packageName, packagePath, language, packageManager } =
-    await appApi.getInputBySchema(
-      GeneratorPluginSchema,
-      context.config,
-      {
-        packageName: input =>
-          validatePackageName(input as string, packages, {
-            isMonorepoSubProject,
-          }),
-        packagePath: input =>
-          validatePackagePath(
-            input as string,
-            path.join(process.cwd(), projectDir),
-            { isPublic },
-          ),
-      },
-      {
-        packageName: isMonorepoSubProject
-          ? undefined
-          : path.basename(outputPath),
-      },
-    );
+  const {
+    packagePath,
+    language,
+    packageManager,
+    solutionKey,
+    solutionName,
+    baseSolution,
+  } = await appApi.getInputBySchema(
+    GeneratorPluginSchema,
+    context.config,
+    {
+      packageName: input =>
+        validatePackageName(input as string, packages, {
+          isMonorepoSubProject,
+        }),
+      packagePath: input =>
+        validatePackagePath(
+          input as string,
+          path.join(process.cwd(), projectDir),
+          { isPublic },
+        ),
+    },
+    {
+      packageName: isMonorepoSubProject ? undefined : path.basename(outputPath),
+    },
+  );
 
   await appApi.runSubGenerator(
     getGeneratorPath(
@@ -110,7 +114,11 @@ const handleTemplateFile = async (
           `${path.join(projectPath, 'src')}/`,
         )
         .replace('.handlebars', ''),
-    { packageName },
+    {
+      solutionKey,
+      solutionName,
+      baseSolution,
+    },
   );
 
   const updateInfo = {
@@ -120,7 +128,7 @@ const handleTemplateFile = async (
       packageManager as string
     } build:csmith`,
     'scripts.build:csmith': 'csmith-tools build',
-    'dependencies.@modern-js/generator-plugin': '^1.0.0',
+    'dependencies.@modern-js/generator-plugin': '^0.0.1',
     'devDependencies.@modern-js/codesmith-tools': '^1.0.0',
   };
 

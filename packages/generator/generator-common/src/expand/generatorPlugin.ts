@@ -32,6 +32,12 @@ const SolutionNameSchema: Schema = {
   key: 'solutionName',
   type: ['string'],
   label: () => i18n.t(localeKeys.plugin.solutionName.self),
+  state: {
+    value: {
+      effectedByFields: ['solutionKey'],
+      action: (data: Record<string, any>) => `${data.solutionKey || ''}`,
+    },
+  },
   validate: (value: string) => {
     if (!value) {
       return {

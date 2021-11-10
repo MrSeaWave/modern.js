@@ -1,4 +1,4 @@
-import { PluginContextMethod, ForgedApi } from '@modern-js/generator-plugin';
+import { PluginContextMethod, ForgedAPI } from '@modern-js/generator-plugin';
 
 export default function (ctx: PluginContextMethod) {
   ctx.setSolutionInfo({
@@ -7,7 +7,7 @@ export default function (ctx: PluginContextMethod) {
     base: '{{ baseSolution }}',
   });
   ctx.setApiVersion('1.0.0');
-  ctx.onForged((_api: ForgedApi, _inputData: Record<string, unknown>) => {
+  ctx.onForged((_api: ForgedAPI, _inputData: Record<string, unknown>) => {
     // TODO
   });
 }

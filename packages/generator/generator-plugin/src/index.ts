@@ -15,6 +15,7 @@ import {
 import { loadPlugin } from '@/utils';
 
 export type { PluginContextMethod, ForgedAPI, PluginForgedAPI };
+
 interface Plugin {
   name?: string;
   version?: string;
