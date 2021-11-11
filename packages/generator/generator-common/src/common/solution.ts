@@ -14,6 +14,11 @@ export enum SubSolution {
   InnerModule = 'inner_module',
 }
 
+export enum ExpandSolution {
+  GeneratorPlugin = 'generator_plugin',
+  MicroGenerator = 'micro_generator',
+}
+
 export const SolutionText: Record<Solution, () => string> = {
   [Solution.MWA]: () => i18n.t(localeKeys.solution.mwa),
   [Solution.Module]: () => i18n.t(localeKeys.solution.module),
@@ -25,6 +30,24 @@ export const SubSolutionText: Record<SubSolution, () => string> = {
   [SubSolution.MWATest]: () => i18n.t(localeKeys.sub_solution.mwa_test),
   [SubSolution.Module]: () => i18n.t(localeKeys.sub_solution.module),
   [SubSolution.InnerModule]: () => i18n.t(localeKeys.sub_solution.inner_module),
+};
+
+export const ExpandSolutionText: Record<ExpandSolution, () => string> = {
+  [ExpandSolution.MicroGenerator]: () =>
+    i18n.t(localeKeys.expand_solution.micro_generator),
+  [ExpandSolution.GeneratorPlugin]: () =>
+    i18n.t(localeKeys.expand_solution.generator_plugin),
+};
+
+export const ExpandSolutionSchema: Schema = {
+  key: 'expand_solution',
+  label: () => i18n.t(localeKeys.expand_solution.self),
+  type: ['string'],
+  mutualExclusion: true,
+  items: Object.values(ExpandSolution).map(solution => ({
+    key: solution,
+    label: ExpandSolutionText[solution],
+  })),
 };
 
 export const SolutionSchema: Schema = {
@@ -60,6 +83,16 @@ export const SolutionSchema: Schema = {
                   label: SolutionText[solution as Solution],
                 };
               }
+              if (
+                Object.values(ExpandSolution).includes(
+                  solution as ExpandSolution,
+                )
+              ) {
+                return {
+                  key: solution,
+                  label: ExpandSolutionText[solution as ExpandSolution],
+                };
+              }
               return null;
             })
             .filter(solution => Boolean(solution)) as Schema[];
@@ -73,6 +106,7 @@ export const SolutionSchema: Schema = {
             key: solution,
             label: SolutionText[solution],
           })),
+          ExpandSolutionSchema,
         ];
       },
     },
@@ -114,6 +148,16 @@ export const SubSolutionSchema: Schema = {
                   label: SubSolutionText[solution as SubSolution],
                 };
               }
+              if (
+                Object.values(ExpandSolution).includes(
+                  solution as ExpandSolution,
+                )
+              ) {
+                return {
+                  key: solution,
+                  label: ExpandSolutionText[solution as ExpandSolution],
+                };
+              }
               return null;
             })
             .filter(solution => Boolean(solution)) as Schema[];
@@ -127,6 +171,7 @@ export const SubSolutionSchema: Schema = {
             key: solution,
             label: SubSolutionText[solution],
           })),
+          ExpandSolutionSchema,
         ];
       },
     },
@@ -146,6 +191,11 @@ export const SubSolutionGenerator: Record<SubSolution, string> = {
   [SubSolution.MWATest]: '@modern-js/mwa-generator',
   [SubSolution.Module]: '@modern-js/module-generator',
   [SubSolution.InnerModule]: '@modern-js/module-generator',
+};
+
+export const ExpandSolutionGenerator: Record<ExpandSolution, string> = {
+  [ExpandSolution.GeneratorPlugin]: '@modern-js/generator-plugin-generator',
+  [ExpandSolution.MicroGenerator]: '@modern-js/generator-generator',
 };
 
 export const ChangesetGenerator = '@modern-js/changeset-generator';

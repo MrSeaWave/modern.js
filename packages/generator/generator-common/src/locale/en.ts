@@ -13,6 +13,11 @@ export const EN_LOCALE = {
     inner_module: 'Module Solution(Inner)',
     monorepo: 'Monorepo Solution',
   },
+  expand_solution: {
+    self: 'Extend Solution',
+    micro_generator: 'Micro Generator',
+    generator_plugin: 'Generator Plugin',
+  },
   action: {
     self: 'Action',
     function: {

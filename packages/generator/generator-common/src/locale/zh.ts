@@ -12,6 +12,11 @@ export const ZH_LOCALE = {
     module: '模块',
     inner_module: '模块（内部）',
   },
+  expand_solution: {
+    self: '扩展',
+    micro_generator: '微生成器',
+    generator_plugin: '生成器插件',
+  },
   action: {
     self: '请选择你想要的操作',
     function: {

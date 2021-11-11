@@ -9,6 +9,8 @@ import {
   SolutionGenerator,
   Solution,
   SolutionDefualtConfig,
+  ExpandSolutionGenerator,
+  ExpandSolution,
 } from '@modern-js/generator-common';
 
 const getGeneratorPath = (generator: string, distTag: string) => {
@@ -51,10 +53,13 @@ const handleTemplateFile = async (
   appApi: AppAPI,
   plugins: PluginInfo[],
 ) => {
-  const { solution } = await appApi.getInputBySchema(SolutionSchema, {
-    ...context.config,
-    plugins,
-  });
+  const { solution, expand_solution } = await appApi.getInputBySchema(
+    SolutionSchema,
+    {
+      ...context.config,
+      plugins,
+    },
+  );
 
   if (!solution) {
     generator.logger.error('solution is not valid ');
@@ -62,9 +67,21 @@ const handleTemplateFile = async (
     process.exit(1);
   }
 
-  const plugin = plugins.find(p => p.key === solution);
+  if (
+    solution === 'expand_solution' &&
+    !ExpandSolutionGenerator[expand_solution as ExpandSolution]
+  ) {
+    generator.logger.error('solution is not valid ');
+    // eslint-disable-next-line no-process-exit
+    process.exit(1);
+  }
 
-  if (!plugin && !SolutionGenerator[solution as Solution]) {
+  const plugin = plugins.find(p => p.key === solution);
+  if (
+    solution !== 'expand_solution' &&
+    !plugin &&
+    !SolutionGenerator[solution as Solution]
+  ) {
     generator.logger.error('solution is not valid ');
     // eslint-disable-next-line no-process-exit
     process.exit(1);
@@ -81,6 +98,40 @@ const handleTemplateFile = async (
       );
       merge(context.data, pluginResult);
     }
+  }
+
+  if (solution === 'expand_solution') {
+    await appApi.runSubGenerator(
+      getGeneratorPath(
+        ExpandSolutionGenerator[expand_solution as ExpandSolution],
+        context.config.distTag,
+      ),
+      undefined,
+      {
+        ...context.config,
+        hasPlugin: Boolean(plugin),
+        inputDefaultValue: plugin?.inputDefaultValue,
+        gitCommitMessage:
+          plugin?.commitMessage || context.config.gitCommitMessage,
+      },
+    );
+  } else {
+    await appApi.runSubGenerator(
+      getGeneratorPath(
+        SolutionGenerator[
+          plugin ? (plugin.base as Solution) : (solution as Solution)
+        ],
+        context.config.distTag,
+      ),
+      undefined,
+      {
+        ...context.config,
+        hasPlugin: Boolean(plugin),
+        inputDefaultValue: plugin?.inputDefaultValue,
+        gitCommitMessage:
+          plugin?.commitMessage || context.config.gitCommitMessage,
+      },
+    );
   }
 
   await appApi.runSubGenerator(
