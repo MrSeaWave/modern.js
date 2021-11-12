@@ -6,6 +6,7 @@ export const EN_LOCALE = {
     },
     build: { describe: 'build application' },
     start: { describe: 'start server' },
+    deploy: { describe: 'deploy MWA project' },
     new: {
       describe: 'generator runner for MWA project',
       debug: 'using debug mode to log something',

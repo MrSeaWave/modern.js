@@ -91,6 +91,10 @@ export const INTERNAL_PLUGINS: {
   },
   '@modern-js/plugin-jarvis': { cli: '@modern-js/plugin-jarvis/cli' },
   '@modern-js/plugin-tailwindcss': { cli: '@modern-js/plugin-tailwindcss/cli' },
+  '@modern-js/plugin-fc': { cli: '@modern-js/plugin-fc/cli' },
+  '@modern-js/plugin-scf': { cli: '@modern-js/plugin-scf/cli' },
+  '@modern-js/plugin-oss': { cli: '@modern-js/plugin-oss/cli' },
+  '@modern-js/plugin-cos': { cli: '@modern-js/plugin-cos/cli' },
 };
 
 /**
