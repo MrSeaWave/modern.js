@@ -27,6 +27,7 @@ export enum ActionFunction {
   Storybook = 'storybook',
   RuntimeApi = 'runtimeApi',
   SSG = 'ssg',
+  Cloud = 'cloud',
 }
 
 export enum ActionRefactor {
@@ -64,6 +65,7 @@ export const ActionFunctionText: Record<ActionFunction, () => string> = {
   [ActionFunction.RuntimeApi]: () =>
     i18n.t(localeKeys.action.function.runtime_api),
   [ActionFunction.SSG]: () => i18n.t(localeKeys.action.function.ssg),
+  [ActionFunction.Cloud]: () => i18n.t(localeKeys.action.function.cloud),
 };
 
 export const ActionRefactorText: Record<ActionRefactor, () => string> = {

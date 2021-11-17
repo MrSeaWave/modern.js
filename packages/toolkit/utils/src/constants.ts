@@ -95,6 +95,7 @@ export const INTERNAL_PLUGINS: {
   '@modern-js/plugin-scf': { cli: '@modern-js/plugin-scf/cli' },
   '@modern-js/plugin-oss': { cli: '@modern-js/plugin-oss/cli' },
   '@modern-js/plugin-cos': { cli: '@modern-js/plugin-cos/cli' },
+  '@modern-js/plugin-polyfill': { server: '@modern-js/plugin-polyfill' },
 };
 
 /**

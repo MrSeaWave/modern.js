@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "generator/generators/cloud-deploy-generator",
+      "path": "packages/generator/generators/cloud-deploy-generator/"
+    },
+    {
       "name": "cli/plugin-cos",
       "path": "packages/cli/plugin-cos/"
     },

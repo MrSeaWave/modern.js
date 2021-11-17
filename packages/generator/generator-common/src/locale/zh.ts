@@ -31,6 +31,7 @@ export const ZH_LOCALE = {
       runtime_api: '启用「Rumtime API」',
       mwa_storybook: '启用「Visual Testing (Storybook)」模式',
       ssg: '启用「SSG」功能',
+      cloud: '启用「云平台部署」功能',
     },
     element: {
       self: '创建工程元素',
@@ -100,5 +101,12 @@ export const ZH_LOCALE = {
       func: '函数模式',
       framework: '框架模式',
     },
+  },
+  cloud: {
+    self: '请选择功能类型',
+    fc: '阿里云 FC 部署',
+    scf: '腾讯云 SCF 部署',
+    oss: '阿里云 OSS 上传',
+    cos: '腾讯云 COS 上传',
   },
 };
